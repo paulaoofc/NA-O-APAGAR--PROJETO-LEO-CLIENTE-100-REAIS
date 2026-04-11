@@ -45,9 +45,15 @@
         "script",
         "https://connect.facebook.net/en_US/fbevents.js",
       );
-      fbq("init", "4247176698930552");
+      /* ============================================================
+         ⭐ PIXEL META (Facebook) — SUBSTITUA O ID ABAIXO
+         Pixel ID atual: 4247176698930552
+         Para trocar: altere APENAS o número entre as aspas
+         ============================================================ */
+      fbq("init", "4247176698930552"); /* ⭐ PIXEL ID — trocar aqui */
       fbq("track", "PageView");
     </script>
+    <!-- ⭐ PIXEL ID (noscript fallback) — se trocar o Pixel ID, trocar também o número abaixo -->
     <noscript
       ><img
         height="1"
@@ -1410,10 +1416,19 @@
 
     <script>
       /* ── CONFIG ────────────────────────────────────────────────── */
+      /* ============================================================
+         ⭐ CONFIGURACOES PRINCIPAIS — altere aqui para personalizar
+
+         pixelId       → ID do Pixel Meta (Facebook)
+                          Pixel ID atual: 4247176698930552
+         whatsappNumber → Número fallback do WhatsApp (com DDI)
+                          Pode ser sobrescrito pelo parâmetro ?wa= na URL
+         capiEndpoint  → URL do servidor CAPI (não alterar sem orientacao)
+         ============================================================ */
       const CONFIG = {
-        whatsappNumber: "5577981575827", // fallback — sobrescrito por ?wa= ou localStorage
-        pixelId: "4247176698930552",
-        capiEndpoint: "https://capi-api-matheus.onrender.com/event",
+        whatsappNumber: "5577981575827", // ⭐ WHATSAPP — trocar aqui (formato: 55 + DDD + número)
+        pixelId: "4247176698930552", // ⭐ PIXEL ID — trocar aqui
+        capiEndpoint: "https://capi-api-matheus.onrender.com/event", // servidor CAPI
       };
 
       /* ── RESOLVE WHATSAPP NUMBER ───────────────────────────────── */
