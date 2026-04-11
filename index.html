@@ -1,0 +1,1984 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <script>
+      /* Captura fbclid → cookie _fbc + localStorage */
+      (function () {
+        try {
+          var p = new URLSearchParams(window.location.search),
+            c = p.get("fbclid");
+          if (!c) return;
+          var fbc = "fb.1." + Date.now() + "." + c;
+          document.cookie =
+            "_fbc=" +
+            encodeURIComponent(fbc) +
+            "; path=/; max-age=" +
+            60 * 60 * 24 * 365 * 2 +
+            "; SameSite=None; Secure";
+          localStorage.setItem("_fbc", fbc);
+        } catch (e) {}
+      })();
+    </script>
+
+    <!-- Meta Pixel (mock) -->
+    <script>
+      !(function (f, b, e, v, n, t, s) {
+        if (f.fbq) return;
+        n = f.fbq = function () {
+          n.callMethod
+            ? n.callMethod.apply(n, arguments)
+            : n.queue.push(arguments);
+        };
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = !0;
+        n.version = "2.0";
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = !0;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+      })(
+        window,
+        document,
+        "script",
+        "https://connect.facebook.net/en_US/fbevents.js",
+      );
+      fbq("init", "4247176698930552");
+      fbq("track", "PageView");
+    </script>
+    <noscript
+      ><img
+        height="1"
+        width="1"
+        style="display: none"
+        src="https://www.facebook.com/tr?id=4247176698930552&ev=PageView&noscript=1"
+    /></noscript>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ativar Cadastro · LinxTV</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* ── TOKENS ─────────────────────────────────────── */
+      :root {
+        --bg: #07080f;
+        --surface: rgba(255, 255, 255, 0.03);
+        --border: rgba(255, 255, 255, 0.07);
+        --border-hi: rgba(99, 102, 241, 0.55);
+        --txt: #eef0f7;
+        --txt-2: #8b92a9;
+        --accent: #6366f1;
+        --accent-2: #4f46e5;
+        --success: #22c55e;
+        --warn: #f59e0b;
+        --danger: #ef4444;
+        --r: 20px;
+        --r-sm: 13px;
+        --shadow: 0 32px 80px rgba(0, 0, 0, 0.6), 0 4px 20px rgba(0, 0, 0, 0.4);
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        font-family:
+          "Inter",
+          system-ui,
+          -apple-system,
+          sans-serif;
+        background: var(--bg);
+        color: var(--txt);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        min-height: 100dvh;
+        overflow-x: hidden;
+      }
+
+      /* ── DOT GRID TEXTURE ───────────────────────────── */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: radial-gradient(
+          rgba(255, 255, 255, 0.035) 1px,
+          transparent 1px
+        );
+        background-size: 28px 28px;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      /* ── GRADIENT ORBS ──────────────────────────────── */
+      .orb {
+        position: fixed;
+        border-radius: 50%;
+        filter: blur(130px);
+        opacity: 0.13;
+        pointer-events: none;
+        z-index: 0;
+        animation: drift 22s ease-in-out infinite;
+      }
+      .orb-1 {
+        width: 700px;
+        height: 700px;
+        background: #6366f1;
+        top: -200px;
+        left: -200px;
+      }
+      .orb-2 {
+        width: 520px;
+        height: 520px;
+        background: #8b5cf6;
+        bottom: -160px;
+        right: -160px;
+        animation-delay: -9s;
+      }
+      .orb-3 {
+        width: 380px;
+        height: 380px;
+        background: #3b82f6;
+        top: 40%;
+        left: 55%;
+        animation-delay: -16s;
+      }
+
+      @keyframes drift {
+        0%,
+        100% {
+          transform: translate(0, 0) scale(1);
+        }
+        33% {
+          transform: translate(40px, -40px) scale(1.07);
+        }
+        66% {
+          transform: translate(-30px, 25px) scale(0.94);
+        }
+      }
+
+      /* ── CARD ───────────────────────────────────────── */
+      .card {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: 520px;
+        background: linear-gradient(
+          160deg,
+          rgba(255, 255, 255, 0.05) 0%,
+          rgba(255, 255, 255, 0.01) 100%
+        );
+        border: 1px solid var(--border);
+        border-radius: var(--r);
+        box-shadow:
+          var(--shadow),
+          inset 0 1px 0 rgba(255, 255, 255, 0.07);
+        padding: 38px 34px 30px;
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        animation: fadeUp 0.45s cubic-bezier(0.4, 0, 0.2, 1) both;
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(22px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      /* ── BRAND ──────────────────────────────────────── */
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        margin-bottom: 26px;
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--txt-2);
+      }
+      .brand-icon {
+        width: 30px;
+        height: 30px;
+        border-radius: 9px;
+        background: linear-gradient(135deg, var(--accent), #8b5cf6);
+        display: grid;
+        place-items: center;
+        font-size: 0.82rem;
+        box-shadow: 0 0 18px rgba(99, 102, 241, 0.5);
+      }
+
+      /* ── HEADLINE ───────────────────────────────────── */
+      .headline {
+        font-size: 1.8rem;
+        font-weight: 800;
+        line-height: 1.15;
+        letter-spacing: -0.025em;
+        margin-bottom: 10px;
+      }
+      .sub {
+        color: var(--txt-2);
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-bottom: 30px;
+      }
+
+      /* ── PROGRESS ───────────────────────────────────── */
+      .prog-wrap {
+        margin-bottom: 30px;
+      }
+      .prog-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 9px;
+      }
+      .prog-label {
+        font-size: 0.82rem;
+        font-weight: 500;
+        color: var(--txt-2);
+      }
+      .prog-pct {
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: var(--txt);
+      }
+      .prog-track {
+        height: 5px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.06);
+        overflow: hidden;
+        position: relative;
+      }
+      .prog-fill {
+        position: absolute;
+        inset: 0;
+        width: 0%;
+        background: linear-gradient(90deg, var(--warn), #fb923c);
+        transition:
+          width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+          background 0.4s;
+        border-radius: inherit;
+      }
+      .prog-fill::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.3),
+          transparent
+        );
+        animation: shimmer 2s infinite;
+      }
+      @keyframes shimmer {
+        from {
+          transform: translateX(-100%);
+        }
+        to {
+          transform: translateX(100%);
+        }
+      }
+
+      /* ── FORM ───────────────────────────────────────── */
+      form {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+      }
+      .full {
+        grid-column: 1 / -1;
+      }
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+      }
+
+      label {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #b8bdd0;
+        letter-spacing: 0.01em;
+      }
+
+      .input-wrap {
+        position: relative;
+      }
+
+      .form-input {
+        width: 100%;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--border);
+        border-radius: var(--r-sm);
+        padding: 13px 38px 13px 14px;
+        color: var(--txt);
+        font-family: inherit;
+        font-size: 0.95rem;
+        outline: none;
+        transition:
+          border-color 0.2s,
+          background 0.2s,
+          box-shadow 0.2s;
+      }
+      .form-input::placeholder {
+        color: rgba(255, 255, 255, 0.18);
+      }
+      .form-input:hover {
+        background: rgba(255, 255, 255, 0.05);
+      }
+      .form-input:focus {
+        border-color: var(--border-hi);
+        background: rgba(99, 102, 241, 0.06);
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.13);
+      }
+      .form-input.valid {
+        border-color: rgba(34, 197, 94, 0.5);
+        background: rgba(34, 197, 94, 0.04);
+      }
+      .form-input.invalid {
+        border-color: rgba(239, 68, 68, 0.5);
+        background: rgba(239, 68, 68, 0.04);
+      }
+
+      .status-icon {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 0.82rem;
+        font-weight: 700;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.2s;
+      }
+      .form-input.valid ~ .status-icon,
+      .form-input.invalid ~ .status-icon {
+        opacity: 1;
+      }
+
+      .err {
+        display: none;
+        font-size: 0.8rem;
+        color: #fca5a5;
+        padding-left: 2px;
+      }
+
+      /* ── A/B COUNTER ────────────────────────────────── */
+      .ab-counter {
+        grid-column: 1 / -1;
+        background: rgba(239, 68, 68, 0.07);
+        border: 1px solid rgba(239, 68, 68, 0.22);
+        padding: 12px 16px;
+        border-radius: var(--r-sm);
+        text-align: center;
+        font-size: 0.88rem;
+        line-height: 1.5;
+      }
+      .ab-counter strong {
+        color: #fca5a5;
+      }
+
+      /* ── CTA BUTTON ─────────────────────────────────── */
+      .btn {
+        grid-column: 1 / -1;
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        border: none;
+        color: #fff;
+        font-family: inherit;
+        font-size: 1rem;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+        padding: 15px;
+        border-radius: var(--r-sm);
+        cursor: pointer;
+        box-shadow: 0 8px 28px rgba(99, 102, 241, 0.38);
+        transition:
+          transform 0.12s,
+          box-shadow 0.2s,
+          opacity 0.2s;
+      }
+      .btn:hover {
+        opacity: 0.93;
+        box-shadow: 0 12px 36px rgba(99, 102, 241, 0.48);
+      }
+      .btn:active {
+        transform: translateY(1px);
+      }
+      .btn.loading {
+        position: relative;
+        color: transparent;
+        pointer-events: none;
+      }
+      .btn.loading::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        margin: auto;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 2.5px solid rgba(255, 255, 255, 0.25);
+        border-top-color: #fff;
+        animation: spin 0.8s linear infinite;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* ── SUCCESS ────────────────────────────────────── */
+      .success-msg {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        color: var(--success);
+        font-weight: 700;
+        font-size: 1rem;
+        margin-top: 18px;
+        padding: 15px;
+        background: rgba(34, 197, 94, 0.07);
+        border: 1px solid rgba(34, 197, 94, 0.2);
+        border-radius: var(--r-sm);
+      }
+      .success-msg.show {
+        display: flex;
+      }
+
+      /* ── SECURITY BADGE ─────────────────────────────── */
+      .sec {
+        margin-top: 20px;
+        color: var(--txt-2);
+        font-size: 0.82rem;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+      }
+
+      /* ── ADMIN PANEL ────────────────────────────────── */
+      .admin-panel {
+        display: none;
+        margin-top: 26px;
+        padding-top: 22px;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      .admin-heading {
+        font-size: 0.73rem;
+        font-weight: 600;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.18);
+        margin-bottom: 14px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .admin-row {
+        display: flex;
+        gap: 8px;
+        align-items: flex-end;
+      }
+      .admin-row .field {
+        flex: 1;
+      }
+      .admin-input {
+        width: 100%;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        border-radius: var(--r-sm);
+        padding: 12px 14px;
+        color: var(--txt);
+        font-family: inherit;
+        font-size: 0.9rem;
+        outline: none;
+        transition: border-color 0.2s;
+      }
+      .admin-input:focus {
+        border-color: rgba(255, 255, 255, 0.18);
+      }
+      .admin-save {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: var(--txt-2);
+        font-family: inherit;
+        font-size: 0.85rem;
+        font-weight: 600;
+        padding: 12px 16px;
+        border-radius: var(--r-sm);
+        cursor: pointer;
+        white-space: nowrap;
+        transition:
+          background 0.2s,
+          color 0.2s;
+      }
+      .admin-save:hover {
+        background: rgba(255, 255, 255, 0.11);
+        color: var(--txt);
+      }
+      .admin-hint {
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.18);
+        margin-top: 8px;
+      }
+
+      /* ── TOAST ──────────────────────────────────────── */
+      .notice {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 9999;
+        padding: 13px 16px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.55);
+        animation: slideIn 0.22s ease both;
+        max-width: 300px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #fff;
+      }
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateX(14px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      @keyframes slideOut {
+        to {
+          opacity: 0;
+          transform: translateX(14px);
+        }
+      }
+
+      /* ── ABANDONMENT POPUP ──────────────────────────── */
+      .pop {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.62);
+        backdrop-filter: blur(5px);
+        z-index: 9998;
+      }
+      .pop-card {
+        width: min(440px, 92vw);
+        background: #0c0d17;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: var(--r);
+        padding: 28px;
+        box-shadow: 0 32px 80px rgba(0, 0, 0, 0.65);
+        text-align: center;
+      }
+      .pop-card h3 {
+        font-size: 1.15rem;
+        margin-bottom: 10px;
+      }
+      .pop-card p {
+        color: var(--txt-2);
+        font-size: 0.93rem;
+        margin-bottom: 22px;
+        line-height: 1.6;
+      }
+      .pop-actions {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+      }
+      .pop-actions button {
+        padding: 11px 20px;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        font-weight: 700;
+        font-size: 0.9rem;
+        font-family: inherit;
+      }
+      .pop-final {
+        background: linear-gradient(135deg, #ef4444, #b91c1c);
+        color: #fff;
+      }
+      .pop-close {
+        background: rgba(255, 255, 255, 0.07);
+        color: #e5e7eb;
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+      }
+
+      /* ── PAGE SWITCH ──────────────────────────────────── */
+      .page-hidden {
+        display: none !important;
+      }
+      .card--confirm {
+        max-width: 600px;
+      }
+
+      /* ── SHARE BTN (fixed top-right) ───────────────────── */
+      .share-btn {
+        display: none;
+        position: fixed;
+        top: 18px;
+        right: 18px;
+        z-index: 100;
+        background: linear-gradient(135deg, var(--success), #16a34a);
+        color: #fff;
+        font-family: inherit;
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+        border: none;
+        padding: 10px 16px;
+        border-radius: 999px;
+        cursor: pointer;
+        box-shadow: 0 6px 22px rgba(34, 197, 94, 0.38);
+        align-items: center;
+        gap: 7px;
+        transition:
+          transform 0.12s,
+          box-shadow 0.2s;
+        animation: fadeUp 0.5s 0.8s cubic-bezier(0.4, 0, 0.2, 1) both;
+      }
+      .share-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 28px rgba(34, 197, 94, 0.5);
+      }
+      .share-btn:active {
+        transform: translateY(0);
+      }
+
+      /* ── WELCOME TOAST (fixed bottom-right) ─────────────── */
+      .welcome-toast {
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 100;
+        background: linear-gradient(135deg, #0c1a2e, #111827);
+        border: 1px solid rgba(34, 197, 94, 0.3);
+        color: var(--txt);
+        font-size: 0.85rem;
+        font-weight: 600;
+        padding: 12px 16px;
+        border-radius: 14px;
+        box-shadow: 0 16px 50px rgba(0, 0, 0, 0.55);
+        align-items: center;
+        gap: 8px;
+        max-width: 260px;
+        animation: slideUp 0.4s 1.2s cubic-bezier(0.4, 0, 0.2, 1) both;
+      }
+      .welcome-dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--success);
+        box-shadow: 0 0 8px rgba(34, 197, 94, 0.8);
+        flex-shrink: 0;
+        animation: pulse 2s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.4;
+        }
+      }
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(14px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      /* ── CONFIRM: STATUS BAR ─────────────────────────────── */
+      .status-bar {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+      .badge {
+        background: linear-gradient(
+          135deg,
+          rgba(34, 197, 94, 0.2),
+          rgba(34, 197, 94, 0.1)
+        );
+        border: 1px solid rgba(34, 197, 94, 0.35);
+        color: #4ade80;
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        padding: 5px 10px;
+        border-radius: 999px;
+      }
+      .status-label {
+        color: var(--txt-2);
+        font-size: 0.88rem;
+        font-weight: 500;
+      }
+
+      /* ── CONFIRM: COUNTDOWN ──────────────────────────────── */
+      .countdown-block {
+        background: linear-gradient(
+          160deg,
+          rgba(99, 102, 241, 0.09),
+          rgba(99, 102, 241, 0.03)
+        );
+        border: 1px solid rgba(99, 102, 241, 0.2);
+        border-radius: var(--r);
+        padding: 22px 20px 18px;
+        text-align: center;
+        margin-bottom: 24px;
+      }
+      .countdown-header {
+        font-size: 0.85rem;
+        color: var(--txt-2);
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+      }
+      .countdown-digits {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        margin-bottom: 14px;
+      }
+      .digit-block {
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        border-radius: 12px;
+        padding: 14px 20px;
+        min-width: 82px;
+      }
+      .digit-num {
+        font-size: 2.6rem;
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        line-height: 1;
+        font-variant-numeric: tabular-nums;
+      }
+      .digit-label {
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        color: var(--txt-2);
+        margin-top: 5px;
+      }
+      .digit-sep {
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: rgba(255, 255, 255, 0.18);
+        margin-bottom: 18px;
+      }
+      .countdown-note {
+        font-size: 0.88rem;
+        color: var(--txt-2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+      }
+      .countdown-note::before {
+        content: "";
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--success);
+        box-shadow: 0 0 8px rgba(34, 197, 94, 0.8);
+        animation: pulse 2s ease-in-out infinite;
+        flex-shrink: 0;
+      }
+
+      /* ── CONFIRM: BENEFITS ───────────────────────────────── */
+      .benefits-title {
+        font-size: 0.88rem;
+        font-weight: 700;
+        color: var(--txt-2);
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+      }
+      .benefits-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 24px;
+      }
+      .benefit-card {
+        background: rgba(255, 255, 255, 0.025);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: var(--r-sm);
+        padding: 14px 15px;
+        transition:
+          background 0.2s,
+          border-color 0.2s;
+      }
+      .benefit-card:hover {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.1);
+      }
+      .benefit-icon {
+        font-size: 1.1rem;
+        margin-bottom: 7px;
+      }
+      .benefit-name {
+        font-size: 0.9rem;
+        font-weight: 700;
+        margin-bottom: 3px;
+      }
+      .benefit-desc {
+        font-size: 0.8rem;
+        color: var(--txt-2);
+        line-height: 1.4;
+      }
+
+      /* ── CONFIRM: EMERGENCY ──────────────────────────────── */
+      .emergency {
+        background: rgba(239, 68, 68, 0.05);
+        border: 1px solid rgba(239, 68, 68, 0.15);
+        border-radius: var(--r-sm);
+        padding: 16px;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .emergency-title {
+        font-size: 0.88rem;
+        font-weight: 700;
+        color: #fca5a5;
+        margin-bottom: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+      }
+      .emergency-desc {
+        font-size: 0.83rem;
+        color: var(--txt-2);
+        line-height: 1.5;
+        margin-bottom: 14px;
+      }
+      .emergency-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        color: #fff;
+        font-family: inherit;
+        font-size: 0.88rem;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        text-decoration: none;
+        padding: 12px 22px;
+        border-radius: 10px;
+        box-shadow: 0 6px 20px rgba(99, 102, 241, 0.35);
+        transition:
+          transform 0.12s,
+          box-shadow 0.2s;
+      }
+      .emergency-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 28px rgba(99, 102, 241, 0.5);
+      }
+
+      /* ── CONFIRM: FOOTER ─────────────────────────────────── */
+      .conf-footer {
+        padding-top: 18px;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+      }
+      .footer-copy {
+        font-size: 0.78rem;
+        color: rgba(255, 255, 255, 0.2);
+      }
+      .footer-badges {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .footer-badge {
+        font-size: 0.78rem;
+        color: rgba(255, 255, 255, 0.22);
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      /* ── CONFETTI ─────────────────────────────────────────── */
+      .confetti-piece {
+        position: fixed;
+        width: 8px;
+        height: 8px;
+        pointer-events: none;
+        z-index: 9999;
+        border-radius: 2px;
+        animation: confettiFall linear forwards;
+      }
+      @keyframes confettiFall {
+        0% {
+          transform: translate(0, 0) rotate(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translate(var(--dx), 100vh) rotate(720deg);
+          opacity: 0;
+        }
+      }
+
+      /* ── RESPONSIVE ─────────────────────────────────── */
+      @media (max-width: 560px) {
+        .card {
+          padding: 26px 20px 22px;
+        }
+        form {
+          grid-template-columns: 1fr;
+        }
+        .headline {
+          font-size: 1.45rem;
+        }
+        .benefits-grid {
+          grid-template-columns: 1fr;
+        }
+        .digit-block {
+          min-width: 68px;
+          padding: 12px 14px;
+        }
+        .digit-num {
+          font-size: 2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Background -->
+    <div class="orb orb-1" aria-hidden="true"></div>
+    <div class="orb orb-2" aria-hidden="true"></div>
+    <div class="orb orb-3" aria-hidden="true"></div>
+
+    <div class="card" id="formCard">
+      <!-- Brand -->
+      <div class="brand">
+        <div class="brand-icon">▶</div>
+        LinxTV
+      </div>
+
+      <!-- Headline -->
+      <h1 class="headline">Ative seu acesso agora</h1>
+      <p class="sub">
+        Preencha seus dados para liberar o acesso premium à plataforma.
+      </p>
+
+      <!-- Progress -->
+      <div class="prog-wrap" aria-hidden="true">
+        <div class="prog-header">
+          <span class="prog-label">Progresso</span>
+          <span class="prog-pct" id="progress-percent">0%</span>
+        </div>
+        <div class="prog-track">
+          <div class="prog-fill" id="progress-fill"></div>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <form id="registrationForm" novalidate>
+        <div class="field full">
+          <label for="nome">Nome completo</label>
+          <div class="input-wrap">
+            <input
+              type="text"
+              id="nome"
+              name="nome"
+              class="form-input"
+              placeholder="Ex.: Maria Silva"
+              required
+              autocomplete="name"
+            />
+            <span class="status-icon" id="nome-icon" aria-hidden="true"></span>
+          </div>
+          <div class="err" id="nome-error" role="alert"></div>
+        </div>
+
+        <div class="field">
+          <label for="email">E-mail</label>
+          <div class="input-wrap">
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="form-input"
+              placeholder="voce@email.com"
+              required
+              autocomplete="email"
+            />
+            <span class="status-icon" id="email-icon" aria-hidden="true"></span>
+          </div>
+          <div class="err" id="email-error" role="alert"></div>
+        </div>
+
+        <div class="field">
+          <label for="whatsapp">WhatsApp</label>
+          <div class="input-wrap">
+            <input
+              type="tel"
+              id="whatsapp"
+              name="whatsapp"
+              class="form-input"
+              placeholder="(11) 99999-9999"
+              required
+              autocomplete="tel"
+            />
+            <span
+              class="status-icon"
+              id="whatsapp-icon"
+              aria-hidden="true"
+            ></span>
+          </div>
+          <div class="err" id="whatsapp-error" role="alert"></div>
+        </div>
+
+        <input type="hidden" id="transacao" value="N/A" />
+
+        <div id="ab-counter-slot" class="full"></div>
+
+        <button id="submitBtn" class="btn" type="submit">
+          Ativar Cadastro
+        </button>
+      </form>
+
+      <!-- Success -->
+      <div id="successCheckmark" class="success-msg" role="status">
+        <span aria-hidden="true">✅</span> Cadastro ativado com sucesso!
+      </div>
+
+      <!-- Security -->
+      <p class="sec">
+        <span aria-hidden="true">🔒</span>
+        Seus dados estão protegidos com criptografia
+      </p>
+
+      <!-- Admin Panel (visível apenas se localStorage.getItem('linxtv_admin') estiver definido) -->
+      <div class="admin-panel" id="admin-panel">
+        <div class="admin-heading">
+          <span aria-hidden="true">⚙</span> Configurações
+        </div>
+        <div class="admin-row">
+          <div class="field">
+            <label for="admin-whatsapp">Número do WhatsApp</label>
+            <input
+              type="text"
+              id="admin-whatsapp"
+              class="admin-input"
+              placeholder="5511999999999"
+              inputmode="numeric"
+            />
+          </div>
+          <button id="admin-save-btn" class="admin-save" type="button">
+            Salvar
+          </button>
+        </div>
+        <p class="admin-hint">Formato: 55 + DDD + número (ex: 5511999999999)</p>
+      </div>
+    </div>
+    <!-- /.card -->
+
+    <!-- ░░░░ PAGE 2 — CONFIRMATION ░░░░ -->
+    <button
+      class="share-btn"
+      id="shareBtn"
+      type="button"
+      aria-label="Compartilhar sucesso"
+    >
+      <span aria-hidden="true">🎉</span> Compartilhar Sucesso
+    </button>
+
+    <div
+      class="welcome-toast"
+      id="welcomeToast"
+      role="status"
+      aria-live="polite"
+    >
+      <div class="welcome-dot" aria-hidden="true"></div>
+      Bem-vindo à LinxTV Premium!
+    </div>
+
+    <div class="card card--confirm page-hidden" id="confirmCard">
+      <div class="status-bar">
+        <span class="badge">CADASTRO ATIVO</span>
+        <span class="status-label">Assinatura concluída</span>
+      </div>
+
+      <div class="prog-wrap" aria-hidden="true">
+        <div class="prog-header">
+          <span class="prog-label">Concluída</span>
+          <span class="prog-pct" style="color: #4ade80">100%</span>
+        </div>
+        <div class="prog-track">
+          <div
+            class="prog-fill"
+            id="conf-prog-fill"
+            style="background: linear-gradient(90deg, #22c55e, #16a34a)"
+          ></div>
+        </div>
+      </div>
+
+      <h1 class="headline">
+        Retorne ao <span style="color: #4ade80">WhatsApp,</span>
+      </h1>
+      <p class="sub">
+        tudo completo! Seus dados de acesso chegarão em instantes.
+      </p>
+
+      <div class="countdown-block">
+        <div class="countdown-header">
+          <span aria-hidden="true">🎬</span> Seus dados de acesso serão enviados
+          em:
+        </div>
+        <div
+          class="countdown-digits"
+          role="timer"
+          aria-label="Contador regressivo"
+        >
+          <div class="digit-block">
+            <div class="digit-num" id="cd-min">05</div>
+            <div class="digit-label">MIN</div>
+          </div>
+          <div class="digit-sep" aria-hidden="true">:</div>
+          <div class="digit-block">
+            <div class="digit-num" id="cd-sec">00</div>
+            <div class="digit-label">SEG</div>
+          </div>
+        </div>
+        <div class="countdown-note">Fique atento ao seu WhatsApp!</div>
+      </div>
+
+      <div class="benefits-title">
+        <span aria-hidden="true">🎉</span> O que você ganhou:
+      </div>
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <div class="benefit-icon">📺</div>
+          <div class="benefit-name">50.000+ Canais</div>
+          <div class="benefit-desc">TV ao vivo, esportes, filmes</div>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">🎯</div>
+          <div class="benefit-name">Qualidade 4K</div>
+          <div class="benefit-desc">Ultra HD sem travamentos</div>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">📱</div>
+          <div class="benefit-name">Multi Dispositivos</div>
+          <div class="benefit-desc">TV, celular, tablet, PC</div>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">🛠️</div>
+          <div class="benefit-name">Suporte 24/7</div>
+          <div class="benefit-desc">Ajuda sempre que precisar</div>
+        </div>
+      </div>
+
+      <div class="emergency">
+        <div class="emergency-title">
+          <span aria-hidden="true">🆘</span> Não recebeu em 10 minutos?
+        </div>
+        <p class="emergency-desc">
+          Nossa equipe está sempre pronta para ajudar!<br />
+          Entre em contato conosco imediatamente.
+        </p>
+        <a
+          id="emergencyBtn"
+          href="#"
+          class="emergency-btn"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span aria-hidden="true">📞</span> CONTATO EMERGENCIAL
+        </a>
+      </div>
+
+      <div class="conf-footer">
+        <span class="footer-copy"
+          >© 2024 LinxTV. Todos os direitos reservados.</span
+        >
+        <div class="footer-badges">
+          <span class="footer-badge"
+            ><span aria-hidden="true">🔒</span> Dados Protegidos</span
+          >
+          <span class="footer-badge"
+            ><span aria-hidden="true">✅</span> Acesso Garantido</span
+          >
+          <span class="footer-badge"
+            ><span aria-hidden="true">⚡</span> Suporte 24/7</span
+          >
+        </div>
+      </div>
+    </div>
+    <!-- /.card--confirm -->
+
+    <script>
+      /* ── CONFIG ────────────────────────────────────────────────── */
+      const CONFIG = {
+        whatsappNumber: "5577981575827", // fallback — sobrescrito por ?wa= ou localStorage
+        pixelId: "4247176698930552",
+        capiEndpoint: "https://capi-api-matheus.onrender.com/event",
+      };
+
+      /* ── RESOLVE WHATSAPP NUMBER ───────────────────────────────── */
+      /*
+       * Prioridade:
+       *  1. ?wa=551199999999  na URL  (ex.: URL do anúncio)
+       *  2. localStorage 'linxtv_whatsapp'  (salvo de visita anterior)
+       *  3. CONFIG.whatsappNumber  (fallback hardcoded acima)
+       *
+       * Para trocar o número, o cliente só precisa mudar o parâmetro
+       * ?wa= na URL do anúncio. Na primeira visita o número é salvo
+       * no localStorage e reutilizado nas visitas seguintes.
+       */
+      (function resolveWhatsApp() {
+        try {
+          const urlNum = new URLSearchParams(window.location.search).get("wa");
+          if (urlNum && /^\d{10,15}$/.test(urlNum)) {
+            CONFIG.whatsappNumber = urlNum;
+            localStorage.setItem("linxtv_whatsapp", urlNum);
+            return;
+          }
+          const stored = localStorage.getItem("linxtv_whatsapp");
+          if (stored && /^\d{10,15}$/.test(stored)) {
+            CONFIG.whatsappNumber = stored;
+          }
+        } catch (e) {}
+      })();
+
+      /* ── UTILIDADES ────────────────────────────────────────────── */
+      function getCookie(name) {
+        const v = "; " + document.cookie;
+        const parts = v.split("; " + name + "=");
+        if (parts.length === 2) return parts.pop().split(";").shift();
+        return "";
+      }
+
+      /* ── INIT ──────────────────────────────────────────────────── */
+      document.addEventListener("DOMContentLoaded", () => {
+        checkAdminMode();
+        // Restaura página de confirmação se já registrou (F5)
+        if (localStorage.getItem("linxtv_registered_at")) {
+          showConfirmPage({ firstTime: false });
+          return;
+        }
+        initForm();
+        initProgressBar();
+        initValidation();
+        initABTest();
+        initAbandonmentRecovery();
+        console.log("🚀 LinxTV – página carregada");
+      });
+
+      /* ── ADMIN MODE ────────────────────────────────────────────── */
+      /*
+       * Para ativar o painel admin, execute no console do navegador:
+       *   localStorage.setItem('linxtv_admin', '1')
+       * e recarregue a página.
+       */
+      function checkAdminMode() {
+        if (!localStorage.getItem("linxtv_admin")) return;
+
+        const panel = document.getElementById("admin-panel");
+        panel.style.display = "block";
+
+        const saved = localStorage.getItem("linxtv_whatsapp");
+        if (saved) {
+          document.getElementById("admin-whatsapp").value = saved;
+          CONFIG.whatsappNumber = saved;
+        }
+
+        document
+          .getElementById("admin-save-btn")
+          .addEventListener("click", () => {
+            const num = document
+              .getElementById("admin-whatsapp")
+              .value.trim()
+              .replace(/\D/g, "");
+            if (num.length < 10) {
+              notify("Número inválido. Use o formato 55DDNÚMERO.", "error");
+              return;
+            }
+            CONFIG.whatsappNumber = num;
+            localStorage.setItem("linxtv_whatsapp", num);
+            notify("Número salvo com sucesso!", "success");
+          });
+      }
+
+      /* ── FORM INIT ─────────────────────────────────────────────── */
+      function initForm() {
+        const form = document.getElementById("registrationForm");
+        form.addEventListener("submit", handleFormSubmit);
+        form.querySelectorAll(".form-input").forEach((input) => {
+          input.addEventListener("input", () => {
+            // Máscara deve rodar ANTES da validação
+            if (input.name === "whatsapp") applyWhatsAppMask(input);
+            validateField(input);
+            updateProgress();
+            maybeInitiateCheckout();
+          });
+        });
+      }
+
+      /* Aplica máscara de telefone BR: (XX) XXXX-XXXX ou (XX) XXXXX-XXXX */
+      function applyWhatsAppMask(input) {
+        let v = input.value.replace(/\D/g, "");
+        if (v.length > 11) v = v.slice(0, 11);
+        if (v.length === 11)
+          v = v.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
+        else if (v.length === 10)
+          v = v.replace(/^(\d{2})(\d{4})(\d{4})$/, "($1) $2-$3");
+        else if (v.length >= 7)
+          v = v.replace(/^(\d{2})(\d{4})(\d{0,5})$/, "($1) $2-$3");
+        else if (v.length >= 3) v = v.replace(/^(\d{2})(\d{0,5})$/, "($1) $2");
+        else if (v.length >= 1) v = v.replace(/^(\d{0,2})$/, "($1");
+        input.value = v;
+      }
+
+      /* ── PROGRESS BAR ──────────────────────────────────────────── */
+      function initProgressBar() {
+        setTimeout(updateProgress, 300);
+      }
+
+      function updateProgress() {
+        const inputs = document.querySelectorAll(".form-input[required]");
+        let ok = 0;
+        inputs.forEach((i) => {
+          if (i.value.trim() !== "" && !i.classList.contains("invalid")) ok++;
+        });
+        const pct = Math.round((ok / inputs.length) * 100);
+        const fill = document.getElementById("progress-fill");
+        const label = document.getElementById("progress-percent");
+        fill.style.width = pct + "%";
+        label.textContent = pct + "%";
+        if (pct === 100)
+          fill.style.background = "linear-gradient(90deg,#22c55e,#16a34a)";
+        else if (pct >= 66)
+          fill.style.background = "linear-gradient(90deg,#6366f1,#4f46e5)";
+        else fill.style.background = "linear-gradient(90deg,#f59e0b,#fb923c)";
+      }
+
+      /* ── INITIATE CHECKOUT ─────────────────────────────────────── */
+      let initiatedCheckout = false;
+      function maybeInitiateCheckout() {
+        if (!initiatedCheckout && typeof fbq !== "undefined") {
+          const anyFilled = Array.from(
+            document.querySelectorAll(".form-input"),
+          ).some((i) => i.value.trim() !== "");
+          if (anyFilled) {
+            initiatedCheckout = true;
+            fbq("track", "InitiateCheckout", {
+              content_name: "LinxTV Registration",
+            });
+          }
+        }
+      }
+
+      /* ── VALIDATION ────────────────────────────────────────────── */
+      function initValidation() {
+        // Máscara centralizada em applyWhatsAppMask(), chamada no initForm.
+      }
+
+      function validateField(input) {
+        const value = input.value.trim();
+        let valid = true,
+          msg = "";
+
+        if (input.name === "nome") {
+          if (value.length < 2) {
+            valid = false;
+            msg = "Mínimo 2 caracteres";
+          } else if (!/^[a-zA-ZÀ-ÿ\s]+$/.test(value)) {
+            valid = false;
+            msg = "Use apenas letras";
+          } else if (value.split(" ").filter(Boolean).length < 2) {
+            valid = false;
+            msg = "Digite nome e sobrenome";
+          }
+        }
+        if (input.name === "email") {
+          if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+            valid = false;
+            msg = "E-mail inválido";
+          }
+        }
+        if (input.name === "whatsapp") {
+          // Aceita fixo (XX) XXXX-XXXX e celular (XX) XXXXX-XXXX
+          if (!/^\(\d{2}\)\s\d{4,5}-\d{4}$/.test(value)) {
+            valid = false;
+            msg = "Ex: (11) 98765-4321 ou (11) 3456-7890";
+          }
+        }
+
+        input.classList.remove("valid", "invalid");
+        if (value !== "") input.classList.add(valid ? "valid" : "invalid");
+
+        const icon = document.getElementById(input.name + "-icon");
+        if (icon) {
+          icon.textContent = value === "" ? "" : valid ? "✓" : "✕";
+          icon.style.color = valid ? "#22c55e" : "#ef4444";
+        }
+
+        const err = document.getElementById(input.name + "-error");
+        if (err) {
+          err.textContent = msg;
+          err.style.display = msg ? "block" : "none";
+        }
+
+        return valid;
+      }
+
+      /* ── ANTI-SPAM ─────────────────────────────────────────────── */
+      let submitAttempts = 0;
+      function checkSubmissionRate() {
+        submitAttempts++;
+        if (submitAttempts > 3) {
+          notify("Muitas tentativas. Aguarde 1 minuto.", "error");
+          setTimeout(() => {
+            submitAttempts = 0;
+          }, 60000);
+          return false;
+        }
+        return true;
+      }
+
+      /* ── SUBMIT ────────────────────────────────────────────────── */
+      async function handleFormSubmit(e) {
+        e.preventDefault();
+        if (!checkSubmissionRate()) return;
+
+        const inputs = document.querySelectorAll(".form-input[required]");
+        let ok = true;
+        inputs.forEach((i) => {
+          if (!validateField(i) || i.value.trim() === "") ok = false;
+        });
+        if (!ok) {
+          notify("Corrija os erros antes de continuar.", "error");
+          return;
+        }
+
+        const btn = document.getElementById("submitBtn");
+        btn.classList.add("loading");
+        btn.disabled = true;
+
+        const data = {
+          nome: document.getElementById("nome").value.trim(),
+          email: document.getElementById("email").value.trim(),
+          whatsapp: document.getElementById("whatsapp").value.trim(),
+          transacao: document.getElementById("transacao").value.trim() || "N/A",
+          timestamp: new Date().toISOString(),
+          source: "LinxTV Registration",
+        };
+
+        // Persiste no localStorage
+        try {
+          localStorage.setItem("user_name", data.nome);
+          localStorage.setItem("user_email", data.email);
+          localStorage.setItem("user_phone", data.whatsapp);
+          localStorage.setItem("transacao", data.transacao);
+          localStorage.setItem("linxtv_registered_at", Date.now());
+          localStorage.setItem("_fbp", getCookie("_fbp") || "");
+          localStorage.setItem(
+            "_fbc",
+            getCookie("_fbc") || localStorage.getItem("_fbc") || "",
+          );
+        } catch (err) {}
+
+        const regEventId =
+          "reg_" + Date.now() + "_" + Math.random().toString(36).slice(2, 9);
+
+        // Meta Pixel
+        if (typeof fbq !== "undefined") {
+          fbq(
+            "track",
+            "CompleteRegistration",
+            {
+              content_name: "Ativação de Cadastro",
+              content_category: "Registration",
+              content_ids: [data.transacao],
+            },
+            { eventID: regEventId },
+          );
+
+          fbq("trackCustom", "Registration_Complete", {
+            customer_name: data.nome,
+            customer_email: data.email,
+            customer_phone: data.whatsapp,
+            registrationsource: "landingpage",
+            timestamp: new Date().toISOString(),
+          });
+
+          try {
+            localStorage.setItem("last_event_id", regEventId);
+          } catch (err) {}
+        }
+
+        // CAPI
+        fetch(CONFIG.capiEndpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            event_name: "CompleteRegistration",
+            event_id: regEventId,
+            event_source_url: window.location.href,
+            user: {
+              name: data.nome,
+              email: data.email,
+              phone: data.whatsapp,
+              fbp: localStorage.getItem("_fbp") || "",
+              fbc: localStorage.getItem("_fbc") || "",
+            },
+            custom_data: {
+              content_ids: [data.transacao],
+              content_name: "Ativação de Cadastro",
+            },
+          }),
+        })
+          .then((r) => r.json())
+          .then((j) => console.log("📡 CAPI:", j))
+          .catch((err) => console.warn("CAPI error:", err));
+
+        // Fluxo principal
+        try {
+          await sendToServer(data);
+          await sendToWhatsApp(data);
+          showSuccessAndRedirect();
+        } catch (err) {
+          console.error(err);
+          notify("Erro ao processar. Tente novamente.", "error");
+          btn.classList.remove("loading");
+          btn.disabled = false;
+        }
+      }
+
+      async function sendToServer(payload) {
+        // Simula chamada ao servidor — substitua pela sua API
+        await new Promise((r) => setTimeout(r, 1400));
+      }
+
+      async function sendToWhatsApp(data) {
+        const message =
+          `🎉 LinxTV — NOVO CADASTRO\n` +
+          `👤 ${data.nome}\n📧 ${data.email}\n📱 ${data.whatsapp}\n` +
+          `💳 Transação: ${data.transacao}\n⏰ ${new Date().toLocaleString("pt-BR")}`;
+        const url = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`;
+        console.log("WhatsApp URL:", url);
+      }
+
+      function showSuccessAndRedirect() {
+        const btn = document.getElementById("submitBtn");
+        btn.classList.remove("loading");
+        showConfirmPage({ firstTime: true });
+      }
+
+      /* ── CONFIRM PAGE ──────────────────────────────────────── */
+      function showConfirmPage({ firstTime = true } = {}) {
+        // Hide form card
+        document.getElementById("formCard").classList.add("page-hidden");
+
+        // Show fixed floating elements
+        const shareBtn = document.getElementById("shareBtn");
+        const welcomeToast = document.getElementById("welcomeToast");
+        shareBtn.style.display = "flex";
+        welcomeToast.style.display = "flex";
+
+        // Show confirm card
+        const confirmCard = document.getElementById("confirmCard");
+        confirmCard.classList.remove("page-hidden");
+
+        // Animate confirm progress bar to 100%
+        setTimeout(() => {
+          document.getElementById("conf-prog-fill").style.width = "100%";
+        }, 300);
+
+        buildEmergencyLink();
+        startCountdown();
+        initShareButton();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+
+        // Eventos e confetti apenas na primeira vez (não re-dispara no F5)
+        if (firstTime) {
+          fireConfirmPixelEvents();
+          launchConfetti();
+        }
+      }
+
+      function buildEmergencyLink() {
+        const name = localStorage.getItem("user_name") || "";
+        const msg =
+          "Olá! Finalizei meu cadastro na LinxTV" +
+          (name ? " (" + name + ")" : "") +
+          " mas ainda não recebi os dados de acesso. Podem me ajudar?";
+        const url =
+          "https://wa.me/" +
+          CONFIG.whatsappNumber +
+          "?text=" +
+          encodeURIComponent(msg);
+        document.getElementById("emergencyBtn").href = url;
+      }
+
+      function startCountdown() {
+        const DURATION = 300; // 5 minutos
+        const registeredAt = parseInt(
+          localStorage.getItem("linxtv_registered_at") || "0",
+          10,
+        );
+        const elapsed = registeredAt
+          ? Math.floor((Date.now() - registeredAt) / 1000)
+          : 0;
+        let remaining = Math.max(0, DURATION - elapsed);
+
+        const minEl = document.getElementById("cd-min");
+        const secEl = document.getElementById("cd-sec");
+        function render() {
+          minEl.textContent = String(Math.floor(remaining / 60)).padStart(
+            2,
+            "0",
+          );
+          secEl.textContent = String(remaining % 60).padStart(2, "0");
+        }
+        render();
+        if (remaining <= 0) return;
+        const iv = setInterval(() => {
+          remaining--;
+          render();
+          if (remaining <= 0) clearInterval(iv);
+        }, 1000);
+      }
+
+      function fireConfirmPixelEvents() {
+        const transacao = localStorage.getItem("transacao") || "N/A";
+        const lastEventId =
+          localStorage.getItem("last_event_id") || "conf_" + Date.now();
+        const confirmEventId =
+          "conf_" + Date.now() + "_" + Math.random().toString(36).slice(2, 9);
+        if (typeof fbq !== "undefined") {
+          fbq(
+            "track",
+            "Lead",
+            {
+              content_name: "Cadastro Confirmado",
+              content_category: "Registration",
+              content_ids: [transacao],
+            },
+            { eventID: lastEventId },
+          );
+        }
+        fetch(CONFIG.capiEndpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            event_name: "Lead",
+            event_id: confirmEventId,
+            event_source_url: window.location.href,
+            user: {
+              name: localStorage.getItem("user_name") || "",
+              email: localStorage.getItem("user_email") || "",
+              phone: localStorage.getItem("user_phone") || "",
+              fbp: localStorage.getItem("_fbp") || "",
+              fbc: localStorage.getItem("_fbc") || "",
+            },
+            custom_data: {
+              content_ids: [transacao],
+              content_name: "Cadastro Confirmado",
+            },
+          }),
+        })
+          .then((r) => r.json())
+          .then((j) => console.log("📡 CAPI confirm:", j))
+          .catch((err) => console.warn("CAPI error:", err));
+      }
+
+      function launchConfetti() {
+        const colors = [
+          "#6366f1",
+          "#22c55e",
+          "#f59e0b",
+          "#3b82f6",
+          "#ec4899",
+          "#8b5cf6",
+          "#4ade80",
+        ];
+        for (let i = 0; i < 65; i++) {
+          setTimeout(() => {
+            const el = document.createElement("div");
+            el.className = "confetti-piece";
+            const x = Math.random() * 100;
+            const dx = (Math.random() - 0.5) * 200;
+            const dur = 2.2 + Math.random() * 2;
+            el.style.cssText =
+              "left:" +
+              x +
+              "vw;top:-10px;" +
+              "background:" +
+              colors[Math.floor(Math.random() * colors.length)] +
+              ";" +
+              "border-radius:" +
+              (Math.random() > 0.5 ? "50%" : "2px") +
+              ";" +
+              "width:" +
+              (6 + Math.random() * 6) +
+              "px;" +
+              "height:" +
+              (6 + Math.random() * 6) +
+              "px;" +
+              "--dx:" +
+              dx +
+              "px;" +
+              "animation-duration:" +
+              dur +
+              "s;" +
+              "animation-delay:" +
+              Math.random() * 0.5 +
+              "s;";
+            document.body.appendChild(el);
+            setTimeout(
+              () => {
+                el.remove();
+              },
+              (dur + 0.5) * 1000,
+            );
+          }, i * 30);
+        }
+      }
+
+      function initShareButton() {
+        document
+          .getElementById("shareBtn")
+          .addEventListener("click", async () => {
+            const shareData = {
+              title: "LinxTV Premium",
+              text: "Acabei de ativar meu acesso à LinxTV Premium! 50.000+ canais, qualidade 4K e suporte 24/7.",
+              url: window.location.href,
+            };
+            try {
+              if (navigator.share) {
+                await navigator.share(shareData);
+              } else {
+                await navigator.clipboard.writeText(
+                  shareData.text + " " + shareData.url,
+                );
+                notify("Link copiado para a área de transferência!", "success");
+              }
+            } catch (err) {
+              if (err.name !== "AbortError")
+                notify("Não foi possível compartilhar.", "error");
+            }
+          });
+      }
+
+      /* ── NOTIFICATIONS ─────────────────────────────────────────── */
+      function notify(message, type = "info") {
+        const n = document.createElement("div");
+        n.className = "notice";
+        const bgMap = { error: "#340a0a", success: "#052e16", info: "#111827" };
+        const brMap = {
+          error: "rgba(239,68,68,.3)",
+          success: "rgba(34,197,94,.3)",
+          info: "rgba(255,255,255,.1)",
+        };
+        n.style.background = bgMap[type] || bgMap.info;
+        n.style.borderColor = brMap[type] || brMap.info;
+        n.textContent = message;
+        document.body.appendChild(n);
+        setTimeout(() => {
+          n.style.animation = "slideOut .22s ease forwards";
+          setTimeout(() => {
+            n.remove();
+          }, 240);
+        }, 4000);
+      }
+
+      /* ── A/B TEST ──────────────────────────────────────────────── */
+      function initABTest() {
+        const variant =
+          localStorage.getItem("ab_variant") ||
+          (Math.random() < 0.5 ? "A" : "B");
+        localStorage.setItem("ab_variant", variant);
+        if (variant !== "B") return;
+
+        const slot = document.getElementById("ab-counter-slot");
+        const counter = document.createElement("div");
+        counter.className = "ab-counter";
+        const onlineSpan = document.createElement("span");
+        onlineSpan.id = "online-count";
+        onlineSpan.textContent = "847";
+        const spotsSpan = document.createElement("span");
+        spotsSpan.id = "spots-left";
+        spotsSpan.textContent = "12";
+
+        const strong1 = document.createElement("strong");
+        strong1.appendChild(onlineSpan);
+        const strong2 = document.createElement("strong");
+        strong2.appendChild(spotsSpan);
+
+        counter.append(
+          "🔴 ",
+          strong1,
+          " pessoas online agora — apenas ",
+          strong2,
+          " vagas hoje!",
+        );
+        slot.appendChild(counter);
+
+        const btn = document.getElementById("submitBtn");
+        btn.style.background = "linear-gradient(135deg,#ef4444,#b91c1c)";
+        btn.style.boxShadow = "0 8px 28px rgba(239,68,68,.38)";
+        btn.textContent = "🔥 ATIVAR AGORA — ÚLTIMAS VAGAS!";
+
+        setInterval(() => {
+          const el = document.getElementById("online-count");
+          if (!el) return;
+          const next = Math.max(
+            800,
+            Math.min(
+              900,
+              parseInt(el.textContent, 10) + Math.floor(Math.random() * 10) - 5,
+            ),
+          );
+          el.textContent = next;
+        }, 15000);
+
+        setInterval(() => {
+          const el = document.getElementById("spots-left");
+          if (!el) return;
+          const cur = parseInt(el.textContent, 10);
+          if (cur > 3 && Math.random() < 0.3) el.textContent = cur - 1;
+        }, 45000);
+
+        if (typeof fbq !== "undefined")
+          fbq("trackCustom", "ABTestView", { variant });
+      }
+
+      /* ── ABANDONMENT RECOVERY ──────────────────────────────────── */
+      function initAbandonmentRecovery() {
+        let started = false,
+          exitShown = false,
+          idleTimer;
+
+        const resetIdle = () => {
+          clearTimeout(idleTimer);
+          idleTimer = setTimeout(() => {
+            if (started)
+              showPopup(
+                "⏰ Não perca sua vaga!",
+                "Você estava quase finalizando o cadastro. Complete agora e garanta sua assinatura!",
+              );
+          }, 180000);
+        };
+
+        document.querySelectorAll(".form-input").forEach((i) => {
+          i.addEventListener("focus", () => {
+            if (!started) {
+              started = true;
+              if (typeof fbq !== "undefined")
+                fbq("trackCustom", "Form_Started");
+            }
+            resetIdle();
+          });
+          i.addEventListener("input", resetIdle);
+        });
+
+        let mouseY = 0;
+        document.addEventListener("mousemove", (e) => {
+          mouseY = e.clientY;
+        });
+        document.addEventListener("mouseleave", () => {
+          if (mouseY < 80 && started && !exitShown) {
+            exitShown = true;
+            showPopup(
+              "🚨 Espere!",
+              "Você está saindo sem finalizar. Complete seu cadastro agora!",
+            );
+          }
+        });
+
+        resetIdle();
+      }
+
+      function showPopup(title, text) {
+        if (document.querySelector(".pop")) return;
+
+        const overlay = document.createElement("div");
+        overlay.className = "pop";
+        const card = document.createElement("div");
+        card.className = "pop-card";
+        const h3 = document.createElement("h3");
+        h3.textContent = title;
+        const p = document.createElement("p");
+        p.textContent = text;
+        const actions = document.createElement("div");
+        actions.className = "pop-actions";
+        const btnFinal = document.createElement("button");
+        btnFinal.className = "pop-final";
+        btnFinal.textContent = "✅ Finalizar cadastro";
+        const btnClose = document.createElement("button");
+        btnClose.className = "pop-close";
+        btnClose.textContent = "Fechar";
+
+        actions.append(btnFinal, btnClose);
+        card.append(h3, p, actions);
+        overlay.appendChild(card);
+        document.body.appendChild(overlay);
+
+        if (typeof fbq !== "undefined")
+          fbq("trackCustom", "FormAbandonmentAlert");
+
+        btnClose.onclick = () => overlay.remove();
+        btnFinal.onclick = () => {
+          overlay.remove();
+          document
+            .getElementById("submitBtn")
+            .scrollIntoView({ behavior: "smooth", block: "center" });
+        };
+        setTimeout(() => {
+          overlay.remove();
+        }, 10000);
+      }
+    </script>
+  </body>
+</html>
