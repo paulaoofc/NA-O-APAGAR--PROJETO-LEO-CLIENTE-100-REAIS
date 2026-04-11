@@ -58,7 +58,7 @@
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ativar Cadastro · LinxTV</title>
+    <title>Ativar Cadastro · LigaTV</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -68,7 +68,7 @@
 
     <style>
       /* ══════════════════════════════════════════════════
-         VELVET RED  —  LinxTV  —  Complete Redesign
+         VELVET RED  —  LigaTV  —  Complete Redesign
       ══════════════════════════════════════════════════ */
       :root {
         --bg: #09070d;
@@ -406,6 +406,54 @@
         border-bottom-color: var(--success);
       }
       .form-input.invalid {
+        border-bottom-color: var(--danger);
+      }
+
+      /* ── SELECT (Estado) — mesmo estilo dos inputs ── */
+      .form-select {
+        width: 100%;
+        background-color: var(--surface);
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237c7389' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 14px center;
+        border: none;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px 8px 0 0;
+        padding: 14px 40px 14px 16px;
+        color: rgba(255, 255, 255, 0.16);
+        font-family: inherit;
+        font-size: 0.95rem;
+        font-weight: 500;
+        outline: none;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        cursor: pointer;
+        transition:
+          border-color 0.2s,
+          background-color 0.2s;
+      }
+      .form-select.has-value {
+        color: var(--txt);
+      }
+      .form-select option {
+        background-color: #1c1823;
+        color: var(--txt);
+      }
+      .form-select option[value=""] {
+        color: rgba(255, 255, 255, 0.16);
+      }
+      .form-select:hover {
+        background-color: var(--surface-2);
+      }
+      .form-select:focus {
+        background-color: var(--surface-2);
+        border-bottom-color: var(--accent);
+      }
+      .form-select.valid {
+        border-bottom-color: var(--success);
+      }
+      .form-select.invalid {
         border-bottom-color: var(--danger);
       }
 
@@ -1061,7 +1109,7 @@
       <!-- Brand -->
       <div class="brand">
         <div class="brand-icon">▶</div>
-        <span class="brand-name">LinxTV</span>
+        <span class="brand-name">LigaTV</span>
         <span class="brand-pill">Premium</span>
       </div>
 
@@ -1141,6 +1189,48 @@
           <div class="err" id="whatsapp-error" role="alert"></div>
         </div>
 
+        <div class="field full">
+          <label for="estado">Estado</label>
+          <div class="input-wrap">
+            <select id="estado" name="estado" class="form-select" required>
+              <option value="" disabled selected>Selecione seu estado</option>
+              <option value="AC">AC — Acre</option>
+              <option value="AL">AL — Alagoas</option>
+              <option value="AP">AP — Amapá</option>
+              <option value="AM">AM — Amazonas</option>
+              <option value="BA">BA — Bahia</option>
+              <option value="CE">CE — Ceará</option>
+              <option value="DF">DF — Distrito Federal</option>
+              <option value="ES">ES — Espírito Santo</option>
+              <option value="GO">GO — Goiás</option>
+              <option value="MA">MA — Maranhão</option>
+              <option value="MT">MT — Mato Grosso</option>
+              <option value="MS">MS — Mato Grosso do Sul</option>
+              <option value="MG">MG — Minas Gerais</option>
+              <option value="PA">PA — Pará</option>
+              <option value="PB">PB — Paraíba</option>
+              <option value="PR">PR — Paraná</option>
+              <option value="PE">PE — Pernambuco</option>
+              <option value="PI">PI — Piauí</option>
+              <option value="RJ">RJ — Rio de Janeiro</option>
+              <option value="RN">RN — Rio Grande do Norte</option>
+              <option value="RS">RS — Rio Grande do Sul</option>
+              <option value="RO">RO — Rondônia</option>
+              <option value="RR">RR — Roraima</option>
+              <option value="SC">SC — Santa Catarina</option>
+              <option value="SP">SP — São Paulo</option>
+              <option value="SE">SE — Sergipe</option>
+              <option value="TO">TO — Tocantins</option>
+            </select>
+            <span
+              class="status-icon"
+              id="estado-icon"
+              aria-hidden="true"
+            ></span>
+          </div>
+          <div class="err" id="estado-error" role="alert"></div>
+        </div>
+
         <input type="hidden" id="transacao" value="N/A" />
 
         <div id="ab-counter-slot" class="full"></div>
@@ -1161,7 +1251,7 @@
         Seus dados estão protegidos com criptografia
       </p>
 
-      <!-- Admin Panel (visível apenas se localStorage.getItem('linxtv_admin') estiver definido) -->
+      <!-- Admin Panel (visível apenas se localStorage.getItem('LigaTV_admin') estiver definido) -->
       <div class="admin-panel" id="admin-panel">
         <div class="admin-heading">
           <span aria-hidden="true">⚙</span> Configurações
@@ -1203,7 +1293,7 @@
       aria-live="polite"
     >
       <div class="welcome-dot" aria-hidden="true"></div>
-      Bem-vindo à LinxTV Premium!
+      Bem-vindo à LigaTV Premium!
     </div>
 
     <div class="card card--confirm page-hidden" id="confirmCard">
@@ -1301,7 +1391,7 @@
 
       <div class="conf-footer">
         <span class="footer-copy"
-          >© 2024 LinxTV. Todos os direitos reservados.</span
+          >© 2024 LigaTV. Todos os direitos reservados.</span
         >
         <div class="footer-badges">
           <span class="footer-badge"
@@ -1330,7 +1420,7 @@
       /*
        * Prioridade:
        *  1. ?wa=551199999999  na URL  (ex.: URL do anúncio)
-       *  2. localStorage 'linxtv_whatsapp'  (salvo de visita anterior)
+       *  2. localStorage 'LigaTV_whatsapp'  (salvo de visita anterior)
        *  3. CONFIG.whatsappNumber  (fallback hardcoded acima)
        *
        * Para trocar o número, o cliente só precisa mudar o parâmetro
@@ -1342,10 +1432,10 @@
           const urlNum = new URLSearchParams(window.location.search).get("wa");
           if (urlNum && /^\d{10,15}$/.test(urlNum)) {
             CONFIG.whatsappNumber = urlNum;
-            localStorage.setItem("linxtv_whatsapp", urlNum);
+            localStorage.setItem("LigaTV_whatsapp", urlNum);
             return;
           }
-          const stored = localStorage.getItem("linxtv_whatsapp");
+          const stored = localStorage.getItem("LigaTV_whatsapp");
           if (stored && /^\d{10,15}$/.test(stored)) {
             CONFIG.whatsappNumber = stored;
           }
@@ -1364,7 +1454,7 @@
       document.addEventListener("DOMContentLoaded", () => {
         checkAdminMode();
         // Restaura página de confirmação se já registrou (F5)
-        if (localStorage.getItem("linxtv_registered_at")) {
+        if (localStorage.getItem("LigaTV_registered_at")) {
           showConfirmPage({ firstTime: false });
           return;
         }
@@ -1373,22 +1463,22 @@
         initValidation();
         initABTest();
         initAbandonmentRecovery();
-        console.log("🚀 LinxTV – página carregada");
+        console.log("🚀 LigaTV – página carregada");
       });
 
       /* ── ADMIN MODE ────────────────────────────────────────────── */
       /*
        * Para ativar o painel admin, execute no console do navegador:
-       *   localStorage.setItem('linxtv_admin', '1')
+       *   localStorage.setItem('LigaTV_admin', '1')
        * e recarregue a página.
        */
       function checkAdminMode() {
-        if (!localStorage.getItem("linxtv_admin")) return;
+        if (!localStorage.getItem("LigaTV_admin")) return;
 
         const panel = document.getElementById("admin-panel");
         panel.style.display = "block";
 
-        const saved = localStorage.getItem("linxtv_whatsapp");
+        const saved = localStorage.getItem("LigaTV_whatsapp");
         if (saved) {
           document.getElementById("admin-whatsapp").value = saved;
           CONFIG.whatsappNumber = saved;
@@ -1406,7 +1496,7 @@
               return;
             }
             CONFIG.whatsappNumber = num;
-            localStorage.setItem("linxtv_whatsapp", num);
+            localStorage.setItem("LigaTV_whatsapp", num);
             notify("Número salvo com sucesso!", "success");
           });
       }
@@ -1424,6 +1514,15 @@
             maybeInitiateCheckout();
           });
         });
+        const estadoSel = document.getElementById("estado");
+        if (estadoSel) {
+          estadoSel.addEventListener("change", () => {
+            estadoSel.classList.toggle("has-value", estadoSel.value !== "");
+            validateField(estadoSel);
+            updateProgress();
+            maybeInitiateCheckout();
+          });
+        }
       }
 
       /* Aplica máscara de telefone BR: (XX) XXXX-XXXX ou (XX) XXXXX-XXXX */
@@ -1448,11 +1547,16 @@
 
       function updateProgress() {
         const inputs = document.querySelectorAll(".form-input[required]");
+        const selects = document.querySelectorAll(".form-select[required]");
+        const total = inputs.length + selects.length;
         let ok = 0;
         inputs.forEach((i) => {
           if (i.value.trim() !== "" && !i.classList.contains("invalid")) ok++;
         });
-        const pct = Math.round((ok / inputs.length) * 100);
+        selects.forEach((s) => {
+          if (s.value !== "") ok++;
+        });
+        const pct = Math.round((ok / total) * 100);
         const fill = document.getElementById("progress-fill");
         const label = document.getElementById("progress-percent");
         fill.style.width = pct + "%";
@@ -1474,7 +1578,7 @@
           if (anyFilled) {
             initiatedCheckout = true;
             fbq("track", "InitiateCheckout", {
-              content_name: "LinxTV Registration",
+              content_name: "LigaTV Registration",
             });
           }
         }
@@ -1515,6 +1619,12 @@
             msg = "Ex: (11) 98765-4321 ou (11) 3456-7890";
           }
         }
+        if (input.name === "estado") {
+          if (value === "") {
+            valid = false;
+            msg = "Selecione seu estado";
+          }
+        }
 
         input.classList.remove("valid", "invalid");
         if (value !== "") input.classList.add(valid ? "valid" : "invalid");
@@ -1553,7 +1663,9 @@
         e.preventDefault();
         if (!checkSubmissionRate()) return;
 
-        const inputs = document.querySelectorAll(".form-input[required]");
+        const inputs = document.querySelectorAll(
+          ".form-input[required], .form-select[required]",
+        );
         let ok = true;
         inputs.forEach((i) => {
           if (!validateField(i) || i.value.trim() === "") ok = false;
@@ -1571,9 +1683,10 @@
           nome: document.getElementById("nome").value.trim(),
           email: document.getElementById("email").value.trim(),
           whatsapp: document.getElementById("whatsapp").value.trim(),
+          estado: document.getElementById("estado").value.trim(),
           transacao: document.getElementById("transacao").value.trim() || "N/A",
           timestamp: new Date().toISOString(),
-          source: "LinxTV Registration",
+          source: "LigaTV Registration",
         };
 
         // Persiste no localStorage
@@ -1582,7 +1695,7 @@
           localStorage.setItem("user_email", data.email);
           localStorage.setItem("user_phone", data.whatsapp);
           localStorage.setItem("transacao", data.transacao);
-          localStorage.setItem("linxtv_registered_at", Date.now());
+          localStorage.setItem("LigaTV_registered_at", Date.now());
           localStorage.setItem("_fbp", getCookie("_fbp") || "");
           localStorage.setItem(
             "_fbc",
@@ -1664,7 +1777,7 @@
 
       async function sendToWhatsApp(data) {
         const message =
-          `🎉 LinxTV — NOVO CADASTRO\n` +
+          `🎉 LigaTV — NOVO CADASTRO\n` +
           `👤 ${data.nome}\n📧 ${data.email}\n📱 ${data.whatsapp}\n` +
           `💳 Transação: ${data.transacao}\n⏰ ${new Date().toLocaleString("pt-BR")}`;
         const url = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`;
@@ -1712,7 +1825,7 @@
       function buildEmergencyLink() {
         const name = localStorage.getItem("user_name") || "";
         const msg =
-          "Olá! Finalizei meu cadastro na LinxTV" +
+          "Olá! Finalizei meu cadastro na LigaTV" +
           (name ? " (" + name + ")" : "") +
           " mas ainda não recebi os dados de acesso. Podem me ajudar?";
         const url =
@@ -1726,7 +1839,7 @@
       function startCountdown() {
         const DURATION = 300; // 5 minutos
         const registeredAt = parseInt(
-          localStorage.getItem("linxtv_registered_at") || "0",
+          localStorage.getItem("LigaTV_registered_at") || "0",
           10,
         );
         const elapsed = registeredAt
@@ -1853,8 +1966,8 @@
           .getElementById("shareBtn")
           .addEventListener("click", async () => {
             const shareData = {
-              title: "LinxTV Premium",
-              text: "Acabei de ativar meu acesso à LinxTV Premium! 50.000+ canais, qualidade 4K e suporte 24/7.",
+              title: "LigaTV Premium",
+              text: "Acabei de ativar meu acesso à LigaTV Premium! 50.000+ canais, qualidade 4K e suporte 24/7.",
               url: window.location.href,
             };
             try {
