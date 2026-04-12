@@ -65,6 +65,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ativar Cadastro · LigaTV</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -229,14 +230,15 @@
         width: 36px;
         height: 36px;
         border-radius: 8px;
-        background: var(--accent);
+        background: transparent;
         display: grid;
         place-items: center;
-        font-size: 0.95rem;
-        font-weight: 900;
-        color: #fff;
-        box-shadow: 0 0 24px rgba(34, 197, 94, 0.5);
         flex-shrink: 0;
+      }
+      .brand-icon img {
+        width: 36px;
+        height: 36px;
+        display: block;
       }
       .brand-name {
         font-size: 1rem;
@@ -1114,7 +1116,7 @@
     <div class="card" id="formCard">
       <!-- Brand -->
       <div class="brand">
-        <div class="brand-icon">▶</div>
+        <div class="brand-icon"><img src="favicon.svg" alt="LigaTV" /></div>
         <span class="brand-name">LigaTV</span>
         <span class="brand-pill">Premium</span>
       </div>
