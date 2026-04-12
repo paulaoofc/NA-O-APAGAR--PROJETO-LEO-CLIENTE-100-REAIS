@@ -896,7 +896,8 @@
       .digit-num {
         font-size: 3.5rem;
         font-weight: 900;
-        letter-spacing: -0.06em;
+        letter-spacing: -0.03em;
+        padding-right: 0.03em; /* compensa o letter-spacing no último caractere */
         line-height: 1;
         font-variant-numeric: tabular-nums;
         background: linear-gradient(180deg, #fff 40%, rgba(255, 255, 255, 0.5));
@@ -1086,6 +1087,7 @@
       @media (max-width: 520px) {
         body {
           padding: 24px 16px 40px;
+          align-items: flex-start;
         }
         form {
           grid-template-columns: 1fr;
@@ -1093,11 +1095,76 @@
         .headline {
           font-size: 1.75rem;
         }
+        .sub {
+          font-size: 0.88rem;
+        }
         .benefits-grid {
           grid-template-columns: 1fr;
         }
         .digit-num {
-          font-size: 2.8rem;
+          font-size: 2.4rem;
+          letter-spacing: -0.03em;
+          padding-right: 0.03em;
+        }
+        .digit-sep {
+          font-size: 2.2rem;
+          margin: 0 4px 6px;
+        }
+
+        /* toast de notificação — ocupa toda a largura */
+        .notice {
+          left: 12px;
+          right: 12px;
+          top: 12px;
+          max-width: none;
+        }
+
+        /* welcome toast — âncora na parte inferior, largura total */
+        .welcome-toast {
+          left: 12px;
+          right: 12px;
+          bottom: 12px;
+          max-width: none;
+        }
+
+        /* botão compartilhar — tamanho reduzido */
+        .share-btn {
+          top: 12px;
+          right: 12px;
+          padding: 7px 12px;
+          font-size: 0.75rem;
+        }
+
+        /* painel admin — empilha campo + botão */
+        .admin-row {
+          flex-direction: column;
+        }
+        .admin-save {
+          width: 100%;
+          text-align: center;
+        }
+
+        /* countdown — reduz padding */
+        .countdown-block {
+          padding: 14px 16px;
+        }
+
+        /* popup de saída — botões em coluna */
+        .pop-actions {
+          flex-direction: column;
+        }
+        .pop-actions button {
+          width: 100%;
+        }
+
+        /* orbs decorativos — tamanho menor para evitar scroll lateral */
+        .orb-1 {
+          width: 320px;
+          height: 320px;
+        }
+        .orb-2 {
+          width: 220px;
+          height: 220px;
         }
       }
     </style>
