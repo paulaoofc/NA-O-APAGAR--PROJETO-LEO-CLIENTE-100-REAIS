@@ -1778,6 +1778,7 @@
           localStorage.setItem("user_name", data.nome);
           localStorage.setItem("user_email", data.email);
           localStorage.setItem("user_phone", data.whatsapp);
+          localStorage.setItem("user_estado", data.estado);
           localStorage.setItem("transacao", data.transacao);
           localStorage.setItem("LigaTV_registered_at", Date.now());
           localStorage.setItem("_fbp", getCookie("_fbp") || "");
@@ -1828,6 +1829,7 @@
               name: data.nome,
               email: data.email,
               phone: data.whatsapp,
+              estado: data.estado,
               fbp: localStorage.getItem("_fbp") || "",
               fbc: localStorage.getItem("_fbc") || "",
             },
@@ -1978,6 +1980,7 @@
               name: localStorage.getItem("user_name") || "",
               email: localStorage.getItem("user_email") || "",
               phone: localStorage.getItem("user_phone") || "",
+              estado: localStorage.getItem("user_estado") || "",
               fbp: localStorage.getItem("_fbp") || "",
               fbc: localStorage.getItem("_fbc") || "",
             },

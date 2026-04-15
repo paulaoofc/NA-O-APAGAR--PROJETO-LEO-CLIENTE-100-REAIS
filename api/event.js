@@ -72,11 +72,12 @@ export default async function handler(req, res) {
   const phone = normalizePhone(user.phone);
 
   const userData = {
-    ...(user.em && { em: [sha256(user.em)] }), // email já pode vir como 'em' ou 'email'
+    ...(user.em && { em: [sha256(user.em)] }),
     ...(user.email && { em: [sha256(user.email)] }),
     ...(phone && { ph: [sha256(phone)] }),
     ...(fn && { fn: [sha256(fn)] }),
     ...(ln && { ln: [sha256(ln)] }),
+    ...(user.estado && { st: [sha256(user.estado)] }),
     ...(user.fbp && { fbp: user.fbp }),
     ...(user.fbc && { fbc: user.fbc }),
     ...(user.client_ip_address && {
