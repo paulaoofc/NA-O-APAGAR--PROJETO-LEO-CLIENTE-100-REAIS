@@ -7,7 +7,7 @@
  *   META_CAPI_TOKEN  → Access token do CAPI (gerado no Gerenciador de Eventos)
  */
 
-import { createHash } from "crypto";
+const { createHash } = require("crypto");
 
 /* ─── helpers ─────────────────────────────────────────────── */
 
@@ -36,7 +36,7 @@ function splitName(fullName) {
 
 /* ─── handler principal ───────────────────────────────────── */
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   /* CORS — necessário para o browser poder chamar este endpoint */
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
