@@ -124,4 +124,4 @@ module.exports = async function handler(req, res) {
     console.error("Fetch error:", err);
     return res.status(500).json({ error: "Internal server error" });
   }
-}
+};
