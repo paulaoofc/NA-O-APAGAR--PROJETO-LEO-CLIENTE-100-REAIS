@@ -1516,12 +1516,6 @@
           const urlNum = new URLSearchParams(window.location.search).get("wa");
           if (urlNum && /^\d{10,15}$/.test(urlNum)) {
             CONFIG.whatsappNumber = urlNum;
-            localStorage.setItem("LigaTV_whatsapp", urlNum);
-            return;
-          }
-          const stored = localStorage.getItem("LigaTV_whatsapp");
-          if (stored && /^\d{10,15}$/.test(stored)) {
-            CONFIG.whatsappNumber = stored;
           }
         } catch (e) {}
       })();
