@@ -1954,11 +1954,13 @@
         if (typeof fbq !== "undefined") {
           fbq(
             "track",
-            "Lead",
+            "Purchase",
             {
               content_name: "Cadastro Confirmado",
               content_category: "Registration",
               content_ids: [transacao],
+              value: 0,
+              currency: "BRL",
             },
             { eventID: lastEventId },
           );
@@ -1967,7 +1969,7 @@
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            event_name: "Lead",
+            event_name: "Purchase",
             event_id: confirmEventId,
             event_source_url: window.location.href,
             user: {
@@ -1981,6 +1983,8 @@
             custom_data: {
               content_ids: [transacao],
               content_name: "Cadastro Confirmado",
+              value: 0,
+              currency: "BRL",
             },
           }),
         })
