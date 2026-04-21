@@ -1,10 +1,5 @@
 {
   "version": 2,
-  "functions": {
-    "api/event.js": {
-      "runtime": "nodejs20.x"
-    }
-  },
   "headers": [
     {
       "source": "/api/(.*)",
